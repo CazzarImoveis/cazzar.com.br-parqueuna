@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Parque Una SJC · Cazzar Imóveis</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --navy:#414d65; --navyD:#2e3848; --gold:#dec082; --goldD:#b8965a; --goldL:#f0dca4;
+    --cream:#efefed; --creamD:#e2e0dc; --white:#ffffff; --gray:#868686; --grayL:#b5b5b5;
+    --text:#2a2f3a; --border:rgba(65,77,101,0.12); --borderG:rgba(222,192,130,0.35);
+  }
+  html { scroll-behavior:smooth; }
+  body { background:var(--cream); color:var(--text); font-family:'DM Sans',sans-serif; font-weight:300; overflow-x:hidden; }
+  ::-webkit-scrollbar{width:3px} ::-webkit-scrollbar-track{background:var(--cream)} ::-webkit-scrollbar-thumb{background:var(--goldD);border-radius:2px}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  @keyframes lineGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .75s cubic-bezier(.16,1,.3,1),transform .75s cubic-bezier(.16,1,.3,1)}
+  .reveal.visible{opacity:1;transform:translateY(0)}
+  .topbar{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content:space-between;align-items:center;padding:16px 24px;background:rgba(239,239,237,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+  .topbar-logo{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;letter-spacing:.04em;color:var(--navy)}
+  .topbar-logo span{color:var(--goldD)}
+  .topbar-cta{padding:8px 18px;background:var(--navy);color:var(--cream);font-size:10px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;border:none;cursor:pointer;transition:background .3s}
+  .topbar-cta:hover{background:var(--navyD)}
+  .hero{min-height:100svh;padding:100px 24px 64px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;background:var(--navy)}
+  .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 75% 20%,rgba(222,192,130,.11) 0%,transparent 60%),radial-gradient(ellipse 50% 60% at 10% 85%,rgba(222,192,130,.06) 0%,transparent 50%)}
+  .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(222,192,130,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(222,192,130,.05) 1px,transparent 1px);background-size:56px 56px;mask-image:linear-gradient(180deg,transparent 0%,black 25%,black 75%,transparent 100%)}
+  .hero-content{position:relative;z-index:2}
+  .hero-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:20px;animation:fadeIn 1s ease .2s both}
+  .hero-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);animation:pulse 2s infinite}
+  .hero-eyebrow-text{font-size:9px;letter-spacing:.28em;color:var(--gold);font-weight:500;text-transform:uppercase}
+  .hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(58px,16vw,108px);font-weight:300;line-height:.88;letter-spacing:-.02em;color:var(--cream);margin-bottom:8px;animation:fadeUp 1s cubic-bezier(.16,1,.3,1) .3s both}
+  .hero-title em{font-style:italic;color:var(--gold)}
+  .hero-sub{font-size:10px;letter-spacing:.22em;color:var(--goldL);font-weight:400;margin-bottom:32px;animation:fadeUp 1s cubic-bezier(.16,1,.3,1) .45s both;text-transform:uppercase}
+  .hero-divider{width:40px;height:1px;background:var(--gold);transform-origin:left;animation:lineGrow 1s cubic-bezier(.16,1,.3,1) .55s both;margin-bottom:26px}
+  .hero-desc{font-size:15px;line-height:1.75;color:rgba(239,239,237,.65);max-width:340px;margin-bottom:40px;animation:fadeUp 1s cubic-bezier(.16,1,.3,1) .65s both}
+  .hero-cta{display:inline-flex;align-items:center;gap:12px;padding:15px 30px;background:var(--gold);color:var(--navy);font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;border:none;cursor:pointer;transition:all .3s;animation:fadeUp 1s cubic-bezier(.16,1,.3,1) .8s both}
+  .hero-cta:hover{background:var(--goldL);gap:18px}
+  .hero-scroll{position:absolute;right:24px;bottom:56px;display:flex;flex-direction:column;align-items:center;gap:8px;z-index:2;animation:fadeIn 1s ease 1.2s both}
+  .hero-scroll-line{width:1px;height:44px;background:linear-gradient(180deg,transparent,var(--goldD));animation:float 2.2s ease infinite}
+  .hero-scroll-text{font-size:7px;letter-spacing:.22em;color:var(--gray);writing-mode:vertical-rl;text-transform:uppercase}
+  section{padding:72px 24px}
+  .section-tag{display:inline-flex;align-items:center;gap:10px;font-size:9px;letter-spacing:.3em;color:var(--goldD);text-transform:uppercase;font-weight:600;margin-bottom:16px}
+  .section-tag::before{content:'';display:block;width:20px;height:1px;background:var(--goldD)}
+  .section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,9vw,56px);font-weight:300;line-height:1.05;margin-bottom:14px;color:var(--navy)}
+  .section-title em{font-style:italic;color:var(--goldD)}
+  .section-desc{font-size:14px;line-height:1.8;color:var(--gray);margin-bottom:44px}
+  .stats-band{background:var(--navy);display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background-color:rgba(222,192,130,.18)}
+  .stat-item{background:var(--navy);padding:32px 22px;display:flex;flex-direction:column;gap:8px}
+  .stat-number{font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:300;color:var(--gold);line-height:1;letter-spacing:-.02em}
+  .stat-label{font-size:12px;color:rgba(239,239,237,.5);line-height:1.4}
+  .lotes-banner{background:var(--navyD);border:1px solid rgba(222,192,130,.2);padding:14px 20px;display:flex;align-items:center;gap:12px;margin-bottom:24px}
+  .lotes-banner-text{font-size:12px;color:rgba(239,239,237,.7);line-height:1.5}
+  .lotes-banner-text strong{color:var(--goldL);font-weight:500}
+  .vida-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .vida-card{background:var(--navy);padding:22px 18px;position:relative;overflow:hidden}
+  .vida-card::before{content:'';position:absolute;top:-20px;right:-20px;width:80px;height:80px;border-radius:50%;background:radial-gradient(circle,rgba(222,192,130,.1),transparent 70%)}
+  .vida-card-icon{font-size:24px;margin-bottom:10px;display:block}
+  .vida-card-title{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:400;color:var(--cream);line-height:1.2;margin-bottom:6px}
+  .vida-card-desc{font-size:11px;color:rgba(239,239,237,.5);line-height:1.5}
+  .empreend-grid{display:flex;flex-direction:column;gap:12px}
+  .empreend-card{background:var(--white);border:1px solid var(--border);overflow:hidden;transition:box-shadow .3s}
+  .empreend-card:hover{box-shadow:0 8px 40px rgba(65,77,101,.1)}
+  .empreend-header{padding:20px 20px 0;display:flex;align-items:flex-start;gap:12px}
+  .empreend-num{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;color:rgba(65,77,101,.12);line-height:1;flex-shrink:0}
+  .empreend-tipo-wrap{flex:1;padding-top:4px}
+  .empreend-tipo{font-size:9px;letter-spacing:.22em;color:var(--goldD);font-weight:600;text-transform:uppercase;margin-bottom:6px}
+  .empreend-nome{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;color:var(--navy);line-height:1.15;margin-bottom:4px}
+  .empreend-sub{font-size:12px;color:var(--gray)}
+  .empreend-body{padding:16px 20px 22px}
+  .empreend-desc{font-size:13px;color:var(--gray);line-height:1.7;margin-bottom:16px;border-top:1px solid var(--border);padding-top:16px}
+  .empreend-badge{display:inline-flex;align-items:center;gap:5px;padding:5px 10px;background:rgba(65,77,101,.06);border:1px solid var(--border);font-size:10px;color:var(--navy);margin-right:5px;margin-bottom:5px}
+  .empreend-badge.gold{background:rgba(222,192,130,.12);border-color:var(--borderG);color:var(--goldD)}
+  .steps{display:flex;flex-direction:column;gap:0}
+  .step{display:flex;gap:20px;padding:24px 0;border-bottom:1px solid var(--border);align-items:flex-start}
+  .step:last-child{border-bottom:none}
+  .step-num{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:300;color:rgba(65,77,101,.14);line-height:1;min-width:40px;padding-top:2px}
+  .step-title{font-size:15px;font-weight:500;margin-bottom:6px;color:var(--navy)}
+  .step-desc{font-size:13px;color:var(--gray);line-height:1.65}
+  .city-cards{display:flex;flex-direction:column;gap:10px}
+  .city-card{background:var(--white);border:1px solid var(--border);padding:20px;display:flex;justify-content:space-between;align-items:center;transition:border-color .3s}
+  .city-card:hover{border-color:var(--borderG)}
+  .city-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;color:var(--navy);margin-bottom:3px}
+  .city-status{font-size:11px;color:var(--gray)}
+  .city-val{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:#2d7a55;line-height:1}
+  .city-val-label{font-size:10px;color:var(--gray);margin-top:2px;text-align:right}
+  .city-card.destaque{border-color:var(--borderG);background:linear-gradient(135deg,#fffdf7,#fffbf0)}
+  .city-destaque-tag{display:inline-block;font-size:8px;letter-spacing:.18em;color:var(--white);background:var(--navy);padding:3px 8px;font-weight:600;text-transform:uppercase;margin-bottom:5px}
+  .investment-highlight{background:var(--navy);padding:44px 24px;position:relative;overflow:hidden}
+  .investment-highlight::before{content:'';position:absolute;top:-60px;right:-60px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(222,192,130,.1),transparent 70%)}
+  .investment-highlight-label{font-size:9px;letter-spacing:.25em;color:var(--gold);text-transform:uppercase;font-weight:500;margin-bottom:14px}
+  .investment-highlight-text{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;line-height:1.3;color:var(--cream);margin-bottom:14px}
+  .investment-highlight-text em{font-style:italic;color:var(--gold)}
+  .investment-highlight-sub{font-size:13px;color:rgba(239,239,237,.6);line-height:1.7}
+  .quote-block{padding:40px 24px;background:var(--navy);border-left:3px solid var(--gold)}
+  .quote-text{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,5vw,26px);font-weight:300;font-style:italic;line-height:1.4;color:var(--cream);margin-bottom:16px}
+  .quote-author{font-size:11px;color:var(--gold);letter-spacing:.15em;text-transform:uppercase}
+  .cta-section{background:var(--white);border-top:1px solid var(--border);padding:72px 24px;text-align:center;position:relative;overflow:hidden}
+  .cta-section::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:360px;height:360px;background:radial-gradient(circle,rgba(222,192,130,.09),transparent 70%);pointer-events:none}
+  .cta-eyebrow{font-size:9px;letter-spacing:.3em;color:var(--goldD);text-transform:uppercase;font-weight:600;margin-bottom:18px}
+  .cta-title{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,10vw,60px);font-weight:300;line-height:1.05;margin-bottom:16px;color:var(--navy)}
+  .cta-title em{font-style:italic;color:var(--goldD)}
+  .cta-desc{font-size:14px;color:var(--gray);line-height:1.75;max-width:320px;margin:0 auto 40px}
+  .cta-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;width:100%;max-width:320px;padding:18px 32px;background:var(--navy);color:var(--cream);font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;border:none;cursor:pointer;transition:all .3s;margin-bottom:14px}
+  .cta-btn:hover{background:var(--navyD);transform:translateY(-2px);box-shadow:0 12px 40px rgba(65,77,101,.18)}
+  .cta-secondary{display:inline-flex;align-items:center;justify-content:center;gap:10px;width:100%;max-width:320px;padding:16px 32px;background:transparent;color:var(--navy);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;border:1px solid var(--border);transition:all .3s}
+  .cta-secondary:hover{border-color:var(--navy)}
+  .cta-note{margin-top:24px;font-size:11px;color:var(--gray);display:flex;align-items:center;justify-content:center;gap:6px}
+  .cta-note::before{content:'●';color:var(--goldD);font-size:6px;animation:pulse 2s infinite}
+  footer{padding:36px 24px;border-top:1px solid var(--border);background:var(--cream);display:flex;flex-direction:column;gap:14px}
+  .footer-logo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;color:var(--navy);letter-spacing:.04em}
+  .footer-logo span{color:var(--goldD)}
+  .footer-text{font-size:12px;color:var(--gray);line-height:1.6}
+  .sep{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent)}
+  .modal-overlay{position:fixed;inset:0;background:rgba(46,56,72,.55);z-index:9999;display:flex;align-items:flex-end;opacity:0;pointer-events:none;transition:opacity .4s;backdrop-filter:blur(6px)}
+  .modal-overlay.open{opacity:1;pointer-events:all}
+  .modal{width:100%;background:var(--white);border-top:3px solid var(--gold);padding:36px 24px 52px;position:relative;transform:translateY(100%);transition:transform .5s cubic-bezier(.16,1,.3,1);max-height:92svh;overflow-y:auto}
+  .modal-overlay.open .modal{transform:translateY(0)}
+  .modal-handle{width:40px;height:3px;background:var(--creamD);border-radius:2px;margin:0 auto 28px}
+  .modal-eyebrow{font-size:9px;letter-spacing:.22em;color:var(--goldD);font-weight:600;margin-bottom:6px;text-transform:uppercase}
+  .modal-title{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:300;margin-bottom:8px;color:var(--navy);line-height:1.15}
+  .modal-title em{font-style:italic;color:var(--goldD)}
+  .modal-desc{font-size:13px;color:var(--gray);line-height:1.6;margin-bottom:26px}
+  .modal-form{display:flex;flex-direction:column;gap:12px}
+  .modal-input,.modal-select{width:100%;padding:13px 15px;background:var(--cream);border:1px solid var(--creamD);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:300;outline:none;transition:border-color .3s}
+  .modal-input::placeholder{color:var(--grayL)}
+  .modal-input:focus,.modal-select:focus{border-color:var(--goldD)}
+  .modal-select{appearance:none;cursor:pointer}
+  .modal-select option{background:var(--white);color:var(--text)}
+  .modal-submit{padding:16px;background:var(--navy);color:var(--cream);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;border:none;cursor:pointer;transition:background .3s;margin-top:8px}
+  .modal-submit:hover{background:var(--navyD)}
+  .modal-close{position:absolute;top:18px;right:22px;background:none;border:none;color:var(--gray);font-size:18px;cursor:pointer}
+  .modal-close:hover{color:var(--navy)}
+  .success-state{display:none;text-align:center;padding:20px 0}
+  .success-icon{font-size:44px;margin-bottom:14px;animation:float 2s ease infinite;display:block}
+  .success-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;margin-bottom:8px;color:var(--navy)}
+  .success-title em{color:var(--goldD);font-style:italic}
+  .success-desc{font-size:13px;color:var(--gray);line-height:1.6}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-logo"><span>Cazzar</span> Imóveis</div>
+  <button class="topbar-cta" onclick="openModal()">Quero ser avisado</button>
+</header>
+
+<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="formState">
+      <div class="modal-eyebrow">Cazzar Imóveis · Parque Una SJC</div>
+      <div class="modal-title">Quero ser <em>avisado</em> no lançamento</div>
+      <p class="modal-desc">Quando o lançamento acontecer, nossa equipe estará presente e entra em contato direto com você. Sem fila, sem surpresa.</p>
+      <div class="modal-form">
+        <input class="modal-input" type="text" placeholder="Seu nome completo" id="inputNome">
+        <input class="modal-input" type="tel" placeholder="WhatsApp (com DDD)" id="inputTel">
+        <input class="modal-input" type="text" placeholder="CPF (somente números)" id="inputCpf" maxlength="14" oninput="formatCpf(this)">
+        <select class="modal-select" id="inputPerfil">
+          <option value="" disabled selected>Qual é o seu perfil?</option>
+          <option value="morar">Quero morar no Parque Una</option>
+          <option value="investir">Quero investir (renda / valorização)</option>
+          <option value="comercial">Busco espaço comercial / escritório</option>
+          <option value="ambos">Residencial e comercial</option>
+        </select>
+        <select class="modal-select" id="inputEmpreend">
+          <option value="" disabled selected>Qual empreendimento te interessa?</option>
+          <option value="res-ap">Residencial Alto Padrão — 3 dorms, 1 por andar</option>
+          <option value="res-multi">Residencial Multiformato — 1, 2 e 3 dorms</option>
+          <option value="com-lajes">Comercial Lajes Corporativas — andar corrido</option>
+          <option value="com-salas">Comercial Salas — diversas metragens</option>
+          <option value="nao-sei">Ainda não sei, quero mais informações</option>
+        </select>
+        <select class="modal-select" id="inputFaixa">
+          <option value="" disabled selected>Faixa de investimento</option>
+          <option value="ate-1m">Até R$ 1 milhão</option>
+          <option value="1m-3m">R$ 1 milhão a R$ 3 milhões</option>
+          <option value="3m+">Acima de R$ 3 milhões</option>
+        </select>
+        <button class="modal-submit" onclick="submitForm()">QUERO SER AVISADO →</button>
+      </div>
+    </div>
+    <div class="success-state" id="successState">
+      <span class="success-icon">✦</span>
+      <div class="success-title">Cadastro <em>confirmado</em></div>
+      <p class="success-desc">Quando o lançamento acontecer, nossa equipe entra em contato com você pelo WhatsApp. Fique de olho!</p>
+    </div>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="hero-dot"></div>
+      <span class="hero-eyebrow-text">Cazzar Imóveis · Lançamento 2026 · Jardim Aquarius · SJC</span>
+    </div>
+    <h1 class="hero-title">Parque<br><em>Una</em></h1>
+    <p class="hero-sub">São José dos Campos · Av. Cassiano Ricardo</p>
+    <div class="hero-divider"></div>
+    <p class="hero-desc">O primeiro bairro planejado de SJC. Sem muros. Sem portaria. Torres residenciais e comerciais com lançamento previsto para 2026 — cadastre-se e nossa equipe te avisa na hora.</p>
+    <button class="hero-cta" onclick="openModal()">Quero ser avisado no lançamento →</button>
+  </div>
+  <div class="hero-scroll">
+    <div class="hero-scroll-line"></div>
+    <span class="hero-scroll-text">Scroll</span>
+  </div>
+</section>
+
+<div class="stats-band reveal">
+  <div class="stat-item"><div class="stat-number">560k</div><div class="stat-label">m² de área total planejada</div></div>
+  <div class="stat-item"><div class="stat-number">45k</div><div class="stat-label">m² de Parque Central</div></div>
+  <div class="stat-item"><div class="stat-number">R$18k</div><div class="stat-label">valor estimado por m²</div></div>
+  <div class="stat-item"><div class="stat-number">2×</div><div class="stat-label">premiado FIABCI Brasil</div></div>
+</div>
+
+<section style="background:var(--cream)">
+  <div class="section-tag reveal">O projeto</div>
+  <h2 class="section-title reveal">O primeiro bairro<br><em>planejado</em> de SJC</h2>
+  <p class="section-desc reveal">Localizado na Av. Cassiano Ricardo, no Jardim Aquarius — uma das áreas mais valorizadas da cidade — o Parque Una ocupa o conhecido "terreno das vaquinhas" e integra moradia, trabalho, lazer e serviços em um único bairro. Sem muros. Sem portaria. Com vida de verdade nas ruas.</p>
+  <div class="lotes-banner reveal">
+    <div style="font-size:18px">🔒</div>
+    <div class="lotes-banner-text"><strong>Lotes 100% vendidos.</strong> O acesso ao Parque Una agora é exclusivamente pelos verticais — torres residenciais e comerciais.</div>
+  </div>
+  <div class="vida-grid reveal">
+    <div class="vida-card"><span class="vida-card-icon">🌅</span><div class="vida-card-title">Mirante Pôr do Sol</div><div class="vida-card-desc">Vista para a Serra da Mantiqueira</div></div>
+    <div class="vida-card"><span class="vida-card-icon">🍽️</span><div class="vida-card-title">Casa Una Rooftop</div><div class="vida-card-desc">Gastronomia e convivência no alto</div></div>
+    <div class="vida-card"><span class="vida-card-icon">🎭</span><div class="vida-card-title">Casa Una · Oca</div><div class="vida-card-desc">Cultura, eventos e espaço comunitário</div></div>
+    <div class="vida-card"><span class="vida-card-icon">🏃</span><div class="vida-card-title">Academia a Céu Aberto</div><div class="vida-card-desc">Esporte e saúde integrados ao parque</div></div>
+  </div>
+</section>
+
+<section style="background:var(--white);border-top:1px solid var(--border)">
+  <div class="section-tag reveal">Lançamento 2026</div>
+  <h2 class="section-title reveal">Os 4 empreendimentos<br>que serão <em>lançados</em></h2>
+  <p class="section-desc reveal">Torres residenciais e comerciais com valor estimado na faixa de R$18.000/m². Cada produto atende um perfil específico de comprador ou investidor.</p>
+  <div class="empreend-grid">
+    <div class="empreend-card reveal">
+      <div class="empreend-header"><div class="empreend-num">01</div><div class="empreend-tipo-wrap"><div class="empreend-tipo">Residencial · Alto padrão</div><div class="empreend-nome">Residencial Alto Padrão</div><div class="empreend-sub">3 dormitórios · 1 unidade por andar</div></div></div>
+      <div class="empreend-body"><div class="empreend-desc">Para o investidor premium e família high-end que busca exclusividade. Com apenas uma unidade por andar, oferece privacidade total e acabamento de alto nível dentro do bairro mais inovador de SJC.</div><span class="empreend-badge gold">Investidor premium</span><span class="empreend-badge gold">Família high-end</span><span class="empreend-badge">1 unid. por andar</span><span class="empreend-badge">Alto padrão</span></div>
+    </div>
+    <div class="empreend-card reveal">
+      <div class="empreend-header"><div class="empreend-num">02</div><div class="empreend-tipo-wrap"><div class="empreend-tipo">Comercial · Corporativo</div><div class="empreend-nome">Lajes Corporativas</div><div class="empreend-sub">Andar corrido completo</div></div></div>
+      <div class="empreend-body"><div class="empreend-desc">Lajes completas para empresas que buscam sede em localização premium. Andar corrido com flexibilidade total de layout, no coração do bairro planejado mais moderno do Vale do Paraíba.</div><span class="empreend-badge gold">Empresas premium</span><span class="empreend-badge gold">Sede corporativa</span><span class="empreend-badge">Andar corrido</span><span class="empreend-badge">Localização AAA</span></div>
+    </div>
+    <div class="empreend-card reveal">
+      <div class="empreend-header"><div class="empreend-num">03</div><div class="empreend-tipo-wrap"><div class="empreend-tipo">Residencial · Multiformato</div><div class="empreend-nome">Residencial Multiformato</div><div class="empreend-sub">1, 2 e 3 dormitórios</div></div></div>
+      <div class="empreend-body"><div class="empreend-desc">Público amplo, incluindo quem compra o primeiro imóvel. Diversidade de tipologias dentro do mesmo bairro planejado, com toda a infraestrutura do Parque Una acessível a pé.</div><span class="empreend-badge gold">Primeiro imóvel</span><span class="empreend-badge gold">Público amplo</span><span class="empreend-badge">1, 2 e 3 dorms</span><span class="empreend-badge">Diversas metragens</span></div>
+    </div>
+    <div class="empreend-card reveal">
+      <div class="empreend-header"><div class="empreend-num">04</div><div class="empreend-tipo-wrap"><div class="empreend-tipo">Comercial · Salas</div><div class="empreend-nome">Comercial Salas</div><div class="empreend-sub">Diversas metragens disponíveis</div></div></div>
+      <div class="empreend-body"><div class="empreend-desc">Para profissionais liberais, consultórios e escritórios que querem operar em endereço diferenciado. Salas com diversas metragens dentro do bairro mais bem localizado de SJC.</div><span class="empreend-badge gold">Profissionais liberais</span><span class="empreend-badge gold">Escritórios</span><span class="empreend-badge">Diversas metragens</span><span class="empreend-badge">Endereço premium</span></div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--cream);border-top:1px solid var(--border)">
+  <div class="section-tag reveal">Como funciona</div>
+  <h2 class="section-title reveal">Como comprar no<br><em>lançamento</em></h2>
+  <p class="section-desc reveal">O processo é simples. No dia do lançamento, apenas corretores credenciados têm acesso ao evento da incorporadora — e é lá que tudo acontece.</p>
+  <div class="steps">
+    <div class="step reveal"><div class="step-num">01</div><div><div class="step-title">Cadastre seu interesse agora</div><div class="step-desc">Preencha o formulário com seu perfil e o empreendimento de interesse. Sem compromisso — é só para garantirmos que você será avisado.</div></div></div>
+    <div class="step reveal"><div class="step-num">02</div><div><div class="step-title">A Cazzar te avisa quando lançar</div><div class="step-desc">Quando a incorporadora confirmar a data, nossa equipe entra em contato direto com você pelo WhatsApp antes de qualquer outra comunicação.</div></div></div>
+    <div class="step reveal"><div class="step-num">03</div><div><div class="step-title">Nossa equipe vai ao evento por você</div><div class="step-desc">No dia do lançamento, apenas corretores têm acesso ao evento da Idealiza Cidades. A Cazzar estará presente para garantir sua unidade com o PIX que a incorporadora disponibiliza na hora.</div></div></div>
+    <div class="step reveal"><div class="step-num">04</div><div><div class="step-title">Condições iguais para todos</div><div class="step-desc">Não existe imobiliária com condição especial — todas partem do mesmo ponto no lançamento. O que diferencia é estar pronto e com a equipe certa quando o sinal abrir.</div></div></div>
+  </div>
+</section>
+
+<div class="quote-block reveal">
+  <p class="quote-text">"A construtora dá a mesma informação para todo mundo. O que nos diferencia é o conhecimento que construímos sobre o projeto — e estar prontos no dia que importa."</p>
+  <div class="quote-author">Equipe Cazzar · Parque Una SJC</div>
+</div>
+
+<section style="background:var(--white)">
+  <div class="section-tag reveal">Referência comprovada</div>
+  <h2 class="section-title reveal">O modelo já<br><em>funcionou</em> antes</h2>
+  <p class="section-desc reveal">A Idealiza Cidades já entregou Parques Una em outras cidades. Os números de valorização são reais — a equipe Cazzar visitou pessoalmente os projetos entregues.</p>
+  <div class="city-cards">
+    <div class="city-card reveal"><div><div class="city-name">Uberlândia</div><div class="city-status">Projeto concluído · Em operação</div></div><div style="text-align:right"><div class="city-val">↑ 3×</div><div class="city-val-label">valorização desde a planta</div></div></div>
+    <div class="city-card reveal"><div><div class="city-name">Pelotas</div><div class="city-status">Projeto concluído · Em operação</div></div><div style="text-align:right"><div class="city-val">↑ 2,5×</div><div class="city-val-label">valorização desde a planta</div></div></div>
+    <div class="city-card destaque reveal"><div><div class="city-destaque-tag">Próximo</div><div class="city-name">São José dos Campos</div><div class="city-status">Jd. Aquarius · Lançamento 2026</div></div><div style="text-align:right"><div class="city-val" style="color:var(--goldD)">?×</div><div class="city-val-label">você decide entrar agora</div></div></div>
+  </div>
+</section>
+
+<div class="investment-highlight reveal">
+  <div class="investment-highlight-label">Por que se cadastrar agora</div>
+  <div class="investment-highlight-text">Quem está <em>pronto no dia do lançamento</em> sai na frente. Quem não estava cadastrado fica de fora.</div>
+  <div class="investment-highlight-sub">No lançamento, as unidades são disponibilizadas simultaneamente. Estar preparado — com perfil definido, recurso disponível e contato direto com a Cazzar — faz toda a diferença nesse momento.</div>
+</div>
+
+<div class="cta-section reveal">
+  <p class="cta-eyebrow">Lançamento 2026</p>
+  <h2 class="cta-title">Cadastre-se e<br>seja <em>avisado</em></h2>
+  <p class="cta-desc">Quando o lançamento acontecer, a Cazzar entra em contato direto. Rápido, sem burocracia, sem fila.</p>
+  <button class="cta-btn" onclick="openModal()">QUERO SER AVISADO →</button><br>
+  <a href="https://youtube.com/playlist?list=PLTss8hj3Nv7kZ_hsDcMxOKHhF5oEv5ZLg&si=l7-Rd0jmej5kchnM" class="cta-secondary" target="_blank">▶ &nbsp;VER O CAFÉ COM UNA</a>
+  <p class="cta-note">Cadastro gratuito · Sem compromisso</p>
+</div>
+
+<footer>
+  <div class="footer-logo"><span>Cazzar</span> Imóveis</div>
+  <p class="footer-text">Especialistas em imóveis de alto padrão em São José dos Campos.<br>Jardim Aquarius · SJC · SP</p>
+  <p class="footer-text" style="color:var(--grayL)">© 2026 · Todos os direitos reservados</p>
+</footer>
+
+<script>
+  function formatCpf(input){let v=input.value.replace(/\D/g,'').slice(0,11);if(v.length>9)v=v.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/,'$1.$2.$3-$4');else if(v.length>6)v=v.replace(/(\d{3})(\d{3})(\d{1,3})/,'$1.$2.$3');else if(v.length>3)v=v.replace(/(\d{3})(\d{1,3})/,'$1.$2');input.value=v}
+  const reveals=document.querySelectorAll('.reveal');
+  const observer=new IntersectionObserver((entries)=>{entries.forEach((entry,i)=>{if(entry.isIntersecting){setTimeout(()=>entry.target.classList.add('visible'),i*55);observer.unobserve(entry.target)}})},{threshold:.08,rootMargin:'0px 0px -30px 0px'});
+  reveals.forEach(el=>observer.observe(el));
+  function openModal(){document.getElementById('modalOverlay').classList.add('open');document.body.style.overflow='hidden'}
+  function closeModal(){document.getElementById('modalOverlay').classList.remove('open');document.body.style.overflow=''}
+  function handleOverlayClick(e){if(e.target===document.getElementById('modalOverlay'))closeModal()}
+  async function submitForm(){
+    const nome=document.getElementById('inputNome').value.trim();
+    const tel=document.getElementById('inputTel').value.trim();
+    const cpf=document.getElementById('inputCpf').value.trim();
+    const perfil=document.getElementById('inputPerfil').value;
+    const empreend=document.getElementById('inputEmpreend').value;
+    const faixa=document.getElementById('inputFaixa').value;
+    document.querySelectorAll('.modal-input,.modal-select').forEach(el=>el.style.borderColor='');
+    if(!nome||!tel||!cpf||!perfil||!empreend||!faixa){document.querySelectorAll('.modal-input,.modal-select').forEach(el=>{if(!el.value.trim())el.style.borderColor='rgba(180,50,50,0.5)'});return}
+    const btn=document.querySelector('.modal-submit');btn.textContent='ENVIANDO...';btn.disabled=true;
+    try{
+      const res=await fetch('https://formspree.io/f/xkoqajbd',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({Nome:nome,WhatsApp:tel,CPF:cpf,Perfil:perfil,Empreendimento:empreend,'Faixa de Investimento':faixa})});
+      if(res.ok){document.getElementById('formState').style.display='none';document.getElementById('successState').style.display='block';setTimeout(closeModal,3500)}
+      else{btn.textContent='QUERO SER AVISADO →';btn.disabled=false;alert('Erro ao enviar. Tente novamente.')}
+    }catch(e){btn.textContent='QUERO SER AVISADO →';btn.disabled=false;alert('Erro de conexão.')}
+  }
+</script>
+</body>
+</html>
