@@ -222,6 +222,16 @@
           <option value="1m-3m">R$ 1 milhão a R$ 3 milhões</option>
           <option value="3m+">Acima de R$ 3 milhões</option>
         </select>
+        <select class="modal-select" id="inputOrigem" onchange="toggleOrigemDetalhe(this.value)">
+          <option value="" disabled selected>Como você nos encontrou?</option>
+          <option value="instagram">Instagram</option>
+          <option value="indicacao">Indicação de amigo ou familiar</option>
+          <option value="google">Google</option>
+          <option value="youtube">YouTube / Café com Una</option>
+          <option value="whatsapp">WhatsApp</option>
+          <option value="outro">Outro</option>
+        </select>
+        <input class="modal-input" type="text" id="inputOrigemDetalhe" placeholder="Quem te indicou ou qual a origem?" style="display:none">
         <button class="modal-submit" onclick="submitForm()">QUERO SER AVISADO →</button>
       </div>
     </div>
@@ -240,7 +250,7 @@
   <div class="hero-content">
     <div class="hero-eyebrow">
       <div class="hero-dot"></div>
-      <span class="hero-eyebrow-text">Cazzar Imóveis · SJC</span>
+      <span class="hero-eyebrow-text">Cazzar Imóveis · Lançamento 2026 · SJC</span>
     </div>
     <h1 class="hero-title">Parque<br><em>Una</em></h1>
     <p class="hero-sub">São José dos Campos · Av. Cassiano Ricardo</p>
@@ -266,7 +276,7 @@
 <section style="background:var(--cream)">
   <div class="section-tag reveal">O projeto</div>
   <h2 class="section-title reveal">O primeiro bairro<br><em>planejado</em> de SJC</h2>
-  <p class="section-desc reveal">Localizado na Av. Cassiano Ricardo, no Jardim Aquarius uma das áreas mais valorizadas da cidade — o Parque Una ocupa o conhecido "terreno das vaquinhas" e integra moradia, trabalho, lazer e serviços em um único bairro. Sem muros. Sem portaria. Com vida de verdade nas ruas.</p>
+  <p class="section-desc reveal">Localizado na Av. Cassiano Ricardo, no Jardim Aquarius — uma das áreas mais valorizadas da cidade — o Parque Una ocupa o conhecido "terreno das vaquinhas" e integra moradia, trabalho, lazer e serviços em um único bairro. Sem muros. Sem portaria. Com vida de verdade nas ruas.</p>
 
   <div class="lotes-banner reveal">
     <div style="font-size:18px">🔒</div>
@@ -318,7 +328,7 @@
     <div class="mapa-legenda">
       <div class="mapa-item"><div class="mapa-dot res"></div>Residencial (1 e 3)</div>
       <div class="mapa-item"><div class="mapa-dot com"></div>Comercial (2 e 4)</div>
-      <div class="mapa-item" style="grid-column:1/-1;font-size:10px;color:rgba(239,239,237,.45)"></div>
+      <div class="mapa-item" style="grid-column:1/-1;font-size:10px;color:rgba(239,239,237,.45)">Entrada H: Av. Cassiano Ricardo · Entrada E: acesso sul</div>
     </div>
   </div>
 
@@ -348,26 +358,26 @@
 <section style="background:var(--cream);border-top:1px solid var(--border)">
   <div class="section-tag reveal">Como funciona</div>
   <h2 class="section-title reveal">Como comprar no<br><em>lançamento</em></h2>
-  <p class="section-desc reveal">O processo é simples. No dia do lançamento, apenas corretores credenciados têm acesso ao evento da incorporadora e é lá que tudo acontece.</p>
+  <p class="section-desc reveal">O processo é simples. No dia do lançamento, apenas corretores credenciados têm acesso ao evento da incorporadora — e é lá que tudo acontece.</p>
   <div class="steps">
-    <div class="step reveal"><div class="step-num">01</div><div><div class="step-title">Cadastre seu interesse agora</div><div class="step-desc">Preencha o formulário com seu perfil e o empreendimento de interesse. Sem compromisso é só para garantirmos que você será avisado.</div></div></div>
+    <div class="step reveal"><div class="step-num">01</div><div><div class="step-title">Cadastre seu interesse agora</div><div class="step-desc">Preencha o formulário com seu perfil e o empreendimento de interesse. Sem compromisso — é só para garantirmos que você será avisado.</div></div></div>
     <div class="step reveal"><div class="step-num">02</div><div><div class="step-title">A Cazzar te avisa quando lançar</div><div class="step-desc">Quando a incorporadora confirmar a data, nossa equipe entra em contato direto com você pelo WhatsApp antes de qualquer outra comunicação.</div></div></div>
     <div class="step reveal"><div class="step-num">03</div><div><div class="step-title">Nossa equipe vai ao evento por você</div><div class="step-desc">No dia do lançamento, apenas corretores têm acesso ao evento da Idealiza Cidades. A Cazzar estará presente.</div></div></div>
-    <div class="step reveal"><div class="step-num">04</div><div><div class="step-title">Condições iguais para todos</div><div class="step-desc">Não existe imobiliária com condição especial todas partem do mesmo ponto no lançamento. O que diferencia é estar pronto e com a equipe certa quando o sinal abrir.</div></div></div>
+    <div class="step reveal"><div class="step-num">04</div><div><div class="step-title">Condições iguais para todos</div><div class="step-desc">Não existe imobiliária com condição especial — todas partem do mesmo ponto no lançamento. O que diferencia é estar pronto e com a equipe certa quando o sinal abrir.</div></div></div>
   </div>
 </section>
 
 <!-- QUOTE -->
 <div class="quote-block reveal">
-  <p class="quote-text">"A construtora dá a mesma informação para todo mundo. O que nos diferencia é o conhecimento que construímos sobre o projeto e estar prontos no dia que importa."</p>
-  <div class="quote-author">Equipe Cazzar Imóveis · Parque Una SJC</div>
+  <p class="quote-text">"A construtora dá a mesma informação para todo mundo. O que nos diferencia é o conhecimento que construímos sobre o projeto — e estar prontos no dia que importa."</p>
+  <div class="quote-author">Equipe Cazzar · Parque Una SJC</div>
 </div>
 
 <!-- CIDADES -->
 <section style="background:var(--white)">
   <div class="section-tag reveal">Referência comprovada</div>
   <h2 class="section-title reveal">O modelo já<br><em>funcionou</em> antes</h2>
-  <p class="section-desc reveal">A Idealiza Cidades já entregou Parques Una em outras cidades. Os números de valorização são reais a equipe Cazzar visitou pessoalmente os projetos entregues.</p>
+  <p class="section-desc reveal">A Idealiza Cidades já entregou Parques Una em outras cidades. Os números de valorização são reais — a equipe Cazzar visitou pessoalmente os projetos entregues.</p>
   <div class="city-cards">
     <div class="city-card reveal"><div><div class="city-name">Pelotas</div><div class="city-status">Projeto consolidado, com vida urbana ativa e bairro já em pleno funcionamento.</div></div><div style="text-align:right"><div class="city-val">+40% a +60%</div><div class="city-val-label">valorização desde a planta</div></div></div>
     <div class="city-card reveal"><div><div class="city-name">Uberlândia</div><div class="city-status">Projeto em fase avançada, com os primeiros empreendimentos sendo entregues esse ano.</div></div><div style="text-align:right"><div class="city-val">+20% a +35%</div><div class="city-val-label">valorização desde a planta</div></div></div>
@@ -379,14 +389,14 @@
 <div class="investment-highlight reveal">
   <div class="investment-highlight-label">Por que se cadastrar agora</div>
   <div class="investment-highlight-text">Quem está <em>pronto no dia do lançamento</em> sai na frente. Quem não estava cadastrado fica de fora.</div>
-  <div class="investment-highlight-sub">No lançamento, as unidades são disponibilizadas simultaneamente. Estar preparado com perfil definido, recurso disponível e contato direto com a Cazzar faz toda a diferença nesse momento.</div>
+  <div class="investment-highlight-sub">No lançamento, as unidades são disponibilizadas simultaneamente. Estar preparado — com perfil definido, recurso disponível e contato direto com a Cazzar — faz toda a diferença nesse momento.</div>
 </div>
 
 <!-- CTA -->
 <div class="cta-section reveal">
   <p class="cta-eyebrow">Lançamento 2026</p>
   <h2 class="cta-title">Cadastre-se e<br>seja <em>avisado</em></h2>
-  <p class="cta-desc"></p>
+  <p class="cta-desc">Quando o lançamento acontecer, a Cazzar entra em contato direto. Rápido, sem burocracia, sem fila.</p>
   <button class="cta-btn" onclick="openModal()">QUERO SER AVISADO →</button><br>
   <a href="https://youtube.com/playlist?list=PLTss8hj3Nv7kZ_hsDcMxOKHhF5oEv5ZLg&si=l7-Rd0jmej5kchnM" class="cta-secondary" target="_blank">▶ &nbsp;VER O CAFÉ COM UNA</a>
   <p class="cta-note">Cadastro gratuito · Sem compromisso</p>
@@ -407,6 +417,11 @@
   function openModal(){document.getElementById('modalOverlay').classList.add('open');document.body.style.overflow='hidden'}
   function closeModal(){document.getElementById('modalOverlay').classList.remove('open');document.body.style.overflow=''}
   function handleOverlayClick(e){if(e.target===document.getElementById('modalOverlay'))closeModal()}
+  function toggleOrigemDetalhe(val){
+    const el=document.getElementById('inputOrigemDetalhe');
+    if(val==='indicacao'||val==='outro'){el.style.display='block'}
+    else{el.style.display='none';el.value=''}
+  }
   async function submitForm(){
     const nome=document.getElementById('inputNome').value.trim();
     const tel=document.getElementById('inputTel').value.trim();
@@ -414,11 +429,12 @@
     const perfil=document.getElementById('inputPerfil').value;
     const empreend=document.getElementById('inputEmpreend').value;
     const faixa=document.getElementById('inputFaixa').value;
+    const origem=document.getElementById('inputOrigem').value;
     document.querySelectorAll('.modal-input,.modal-select').forEach(el=>el.style.borderColor='');
-    if(!nome||!tel||!cpf||!perfil||!empreend||!faixa){document.querySelectorAll('.modal-input,.modal-select').forEach(el=>{if(!el.value.trim())el.style.borderColor='rgba(180,50,50,0.5)'});return}
+    if(!nome||!tel||!cpf||!perfil||!empreend||!faixa||!origem){document.querySelectorAll('.modal-input,.modal-select').forEach(el=>{if(!el.value.trim())el.style.borderColor='rgba(180,50,50,0.5)'});return}
     const btn=document.querySelector('.modal-submit');btn.textContent='ENVIANDO...';btn.disabled=true;
     try{
-      const res=await fetch('https://formspree.io/f/xkoqajbd',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({Nome:nome,WhatsApp:tel,CPF:cpf,Perfil:perfil,Empreendimento:empreend,'Faixa de Investimento':faixa})});
+      const res=await fetch('https://formspree.io/f/xkoqajbd',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({Nome:nome,WhatsApp:tel,CPF:cpf,Perfil:perfil,Empreendimento:empreend,'Faixa de Investimento':faixa,'Como nos encontrou':origem+(document.getElementById('inputOrigemDetalhe').value?' — '+document.getElementById('inputOrigemDetalhe').value:'')})});
       if(res.ok){document.getElementById('formState').style.display='none';document.getElementById('successState').style.display='block';setTimeout(closeModal,3500)}
       else{btn.textContent='QUERO SER AVISADO →';btn.disabled=false;alert('Erro ao enviar. Tente novamente.')}
     }catch(e){btn.textContent='QUERO SER AVISADO →';btn.disabled=false;alert('Erro de conexão.')}
