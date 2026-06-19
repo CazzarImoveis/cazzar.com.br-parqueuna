@@ -234,7 +234,6 @@
       <div class="modal-form">
         <input class="modal-input" type="text" placeholder="Seu nome completo" id="inputNome">
         <input class="modal-input" type="tel" placeholder="WhatsApp (com DDD)" id="inputTel">
-        <input class="modal-input" type="text" placeholder="CPF (somente números)" id="inputCpf" maxlength="14" oninput="formatCpf(this)">
         <p class="modal-opcional">Opcional — ajuda a personalizar o contato</p>
         <select class="modal-select" id="inputPerfil">
           <option value="" selected>Seu perfil (opcional)</option>
@@ -525,8 +524,6 @@
 </footer>
 
 <script>
-  function formatCpf(input){let v=input.value.replace(/\D/g,'').slice(0,11);if(v.length>9)v=v.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/,'$1.$2.$3-$4');else if(v.length>6)v=v.replace(/(\d{3})(\d{3})(\d{1,3})/,'$1.$2.$3');else if(v.length>3)v=v.replace(/(\d{3})(\d{1,3})/,'$1.$2');input.value=v}
-  function formatCpf(input){let v=input.value.replace(/\D/g,'').slice(0,11);if(v.length>9)v=v.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/,'$1.$2.$3-$4');else if(v.length>6)v=v.replace(/(\d{3})(\d{3})(\d{1,3})/,'$1.$2.$3');else if(v.length>3)v=v.replace(/(\d{3})(\d{1,3})/,'$1.$2');input.value=v}
   const reveals=document.querySelectorAll('.reveal');
   const observer=new IntersectionObserver((entries)=>{entries.forEach((entry,i)=>{if(entry.isIntersecting){setTimeout(()=>entry.target.classList.add('visible'),i*55);observer.unobserve(entry.target)}});},{threshold:.08,rootMargin:'0px 0px -30px 0px'});
   reveals.forEach(el=>observer.observe(el));
@@ -548,7 +545,7 @@
     }
     const btn=document.querySelector('.modal-submit');btn.textContent='ENVIANDO...';btn.disabled=true;
     try{
-      const res=await fetch('https://formspree.io/f/xkoqajbd',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({Nome:nome,WhatsApp:tel,CPF:cpf,Perfil:perfil||'Não informado',Empreendimento:empreend||'Não informado','Origem':'Parceria Maple Bear'})});
+      const res=await fetch('https://formspree.io/f/xkoqajbd',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({Nome:nome,WhatsApp:tel,Perfil:perfil||'Não informado',Empreendimento:empreend||'Não informado','Origem':'Parceria Maple Bear'})});
       if(res.ok){document.getElementById('formState').style.display='none';document.getElementById('successState').style.display='block';setTimeout(closeModal,3500)}
       else{btn.textContent='QUERO ACOMPANHAR OS LANÇAMENTOS →';btn.disabled=false;alert('Erro ao enviar. Tente novamente.')}
     }catch(e){btn.textContent='QUERO ACOMPANHAR OS LANÇAMENTOS →';btn.disabled=false;alert('Erro de conexão.')}
