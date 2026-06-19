@@ -202,7 +202,6 @@ src="https://www.facebook.com/tr?id=1415073912546895&ev=PageView&noscript=1"/>
   .modal-input:focus,.modal-select:focus{border-color:var(--goldD)}
   .modal-select{appearance:none;cursor:pointer}
   .modal-select option{background:var(--white);color:var(--text)}
-  .modal-opcional{font-size:10px;color:var(--gray);letter-spacing:.1em;text-transform:uppercase;margin-top:2px;margin-bottom:-4px}
   .modal-submit{padding:16px;background:var(--navy);color:var(--cream);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;border:none;cursor:pointer;transition:background .3s;margin-top:8px}
   .modal-submit:hover{background:var(--navyD)}
   .modal-close{position:absolute;top:18px;right:22px;background:none;border:none;color:var(--gray);font-size:18px;cursor:pointer}
@@ -234,39 +233,13 @@ src="https://www.facebook.com/tr?id=1415073912546895&ev=PageView&noscript=1"/>
       <div class="modal-form">
         <input class="modal-input" type="text" placeholder="Seu nome completo" id="inputNome">
         <input class="modal-input" type="tel" placeholder="WhatsApp (com DDD)" id="inputTel">
-        <input class="modal-input" type="text" placeholder="CPF (somente números)" id="inputCpf" maxlength="14" oninput="formatCpf(this)">
-        <p class="modal-opcional">Opcional — ajuda a personalizar o contato</p>
-        <select class="modal-select" id="inputPerfil">
-          <option value="" selected>Seu perfil (opcional)</option>
-          <option value="morar">Quero morar no Parque Una</option>
-          <option value="investir">Quero investir</option>
-          <option value="comercial">Busco espaço comercial</option>
-          <option value="ambos">Moradia e investimento</option>
-        </select>
-        <select class="modal-select" id="inputEmpreend">
-          <option value="" selected>Empreendimento de interesse (opcional)</option>
-          <option value="res-ap">Residencial Alto Padrão — 3 dorms</option>
-          <option value="res-multi">Residencial Multiformato — 1, 2 e 3 dorms</option>
-          <option value="com-lajes">Lajes Corporativas — andar corrido</option>
-          <option value="com-salas">Salas Comerciais</option>
-          <option value="nao-sei">Ainda não sei</option>
-        </select>
-        <select class="modal-select" id="inputFaixa">
-          <option value="" selected>Faixa de investimento (opcional)</option>
-          <option value="ate-1m">Até R$ 1 milhão</option>
-          <option value="1m-3m">R$ 1 milhão a R$ 3 milhões</option>
-          <option value="3m+">Acima de R$ 3 milhões</option>
-        </select>
-        <select class="modal-select" id="inputOrigem" onchange="toggleOrigemDetalhe(this.value)">
-          <option value="" disabled selected>Como você nos encontrou?</option>
-          <option value="instagram">Instagram</option>
+        <select class="modal-select" id="inputOrigem" onchange="toggleIndicacao(this.value)">
+          <option value="" disabled selected>Como você conheceu o Parque Una?</option>
+          <option value="redes-sociais">Redes Sociais</option>
           <option value="indicacao">Indicação</option>
-          <option value="google">Google</option>
-          <option value="youtube">YouTube / Café com Una</option>
-          <option value="whatsapp">WhatsApp</option>
-          <option value="outro">Outro</option>
+          <option value="studio-n">Studio N Barbearia</option>
         </select>
-        <input class="modal-input" type="text" id="inputOrigemDetalhe" placeholder="Quem te indicou ou qual a origem?" style="display:none">
+        <input class="modal-input" type="text" id="inputIndicacao" placeholder="De quem veio a indicação?" style="display:none">
         <button class="modal-submit" onclick="submitForm()">QUERO ACOMPANHAR OS LANÇAMENTOS →</button>
       </div>
     </div>
@@ -447,18 +420,17 @@ src="https://www.facebook.com/tr?id=1415073912546895&ev=PageView&noscript=1"/>
   function openModal(){document.getElementById('modalOverlay').classList.add('open');document.body.style.overflow='hidden'}
   function closeModal(){document.getElementById('modalOverlay').classList.remove('open');document.body.style.overflow=''}
   function handleOverlayClick(e){if(e.target===document.getElementById('modalOverlay'))closeModal()}
-  function toggleOrigemDetalhe(val){
-    const el=document.getElementById('inputOrigemDetalhe');
-    if(val==='indicacao'||val==='outro'){el.style.display='block'}
+
+
+  function toggleIndicacao(val){
+    const el=document.getElementById('inputIndicacao');
+    if(val==='indicacao'){el.style.display='block'}
     else{el.style.display='none';el.value=''}
   }
   async function submitForm(){
     const nome=document.getElementById('inputNome').value.trim();
     const tel=document.getElementById('inputTel').value.trim();
     const cpf=document.getElementById('inputCpf').value.trim();
-    const perfil=document.getElementById('inputPerfil').value;
-    const empreend=document.getElementById('inputEmpreend').value;
-    const faixa=document.getElementById('inputFaixa').value;
     const origem=document.getElementById('inputOrigem').value;
     document.querySelectorAll('.modal-input,.modal-select').forEach(el=>el.style.borderColor='');
     if(!nome||!tel||!cpf||!origem){
@@ -470,7 +442,7 @@ src="https://www.facebook.com/tr?id=1415073912546895&ev=PageView&noscript=1"/>
     }
     const btn=document.querySelector('.modal-submit');btn.textContent='ENVIANDO...';btn.disabled=true;
     try{
-      const res=await fetch('https://formspree.io/f/xkoqajbd',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({Nome:nome,WhatsApp:tel,CPF:cpf,Perfil:perfil||'Não informado',Empreendimento:empreend||'Não informado','Faixa de Investimento':faixa||'Não informado','Como nos encontrou':origem+(document.getElementById('inputOrigemDetalhe').value?' — '+document.getElementById('inputOrigemDetalhe').value:'')})});
+      const res=await fetch('https://formspree.io/f/xkoqajbd',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({Nome:nome,WhatsApp:tel,CPF:cpf,'Como nos encontrou':origem})});
       if(res.ok){fbq('track','Lead');document.getElementById('formState').style.display='none';document.getElementById('successState').style.display='block';setTimeout(closeModal,3500)}
       else{btn.textContent='QUERO ACOMPANHAR OS LANÇAMENTOS →';btn.disabled=false;alert('Erro ao enviar. Tente novamente.')}
     }catch(e){btn.textContent='QUERO ACOMPANHAR OS LANÇAMENTOS →';btn.disabled=false;alert('Erro de conexão.')}
